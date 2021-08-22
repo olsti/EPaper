@@ -23,7 +23,8 @@ GxEPD2_3C<GxEPD2_270c, MAX_HEIGHT_3C(GxEPD2_270c)> display(GxEPD2_270c(/*CS=4*/ 
 #include "bitmaps/Bitmaps3c176x264.h" // 2.7"  b/w/r
 
 #define VERSION "V1.1"
-#define STRING_SIZE 20
+#define SIZE_STRING 12
+#define SIZE_VALUE 6
 
 enum class ValueType {
   UNDEF,
@@ -43,16 +44,18 @@ void setup() {
 
 void loop() {
   delay(500);
-  char outStr[STRING_SIZE+1]; //+1 for char-end
+  char outStr[SIZE_STRING+1]; //+1 for char-end
   bool ok = readDataSerial(outStr, sizeof(outStr));
   ValueType valueType = ValueType::UNDEF;
   ok = ok && checkInputValue(outStr, valueType);
-  ok = ok && printValueType(outStr, valueType);
+  //&outStr[5] = SIZE_VALUE-1 header [BTC] weg
+  ok = ok && printValueType(&outStr[SIZE_VALUE-1], valueType);
   if(!ok) {
       Serial.print("no data recieved\n"); 
   } else {
     //show data a little longer
     delay(3000);
+    Serial.print("<ARD_READY>");
   }
 }
 
