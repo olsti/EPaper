@@ -118,18 +118,21 @@ bool readDataSerial(char *input, int size_arr) {
 bool checkInputValue(char *input, ValueType &valueType) {
   bool ok = false;
   //input[1] first char is startmarker
-  if(strncmp(&input[1], "SMI", 3 == 0)) {
+  if(strncmp(&input[1], "SMI", 3) == 0) {
     valueType  = ValueType::SMI;
     Serial.print("SMI Value found");
     ok = true;
-  } else if (strncmp(&input[1], "BTC", 3 == 0)) {
+  } else if (strncmp(&input[1], "BTC", 3) == 0) {
     valueType  = ValueType::BTC;
     Serial.print("BTC Value found");
     ok = true;
-  } else if (strncmp(&input[1], "ETH", 3 == 0)) {
+  } else if (strncmp(&input[1], "ETH", 3) == 0) {
     valueType  = ValueType::ETH;
     Serial.print("ETH Value found");
     ok = true;
+  } else {
+    Serial.print("no valuetype found");
+    Serial.print(&input[1]);
   }
   return ok;
 }
