@@ -52,7 +52,7 @@ def waitForArduino():
 def updateCycle():
     lastBTCPriceUsd = dataCollector.get_latest_crypto_price('btc')
     print(lastBTCPriceUsd)
-    sendStrToArduino("[BTC]", lastBTCPriceUsd);
+    sendStrToArduino("[BTC]", lastBTCPriceUsd+"$");
 
 def main():
     waitForArduino()
